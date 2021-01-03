@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:acm_widget_mobile_app/data/global_data.dart';
 
 class Settings {
   // keeps track of if the search bar is in normal or reverse mode
@@ -10,11 +11,11 @@ class Settings {
 
   // https://developer.edamam.com/edamam-docs-recipe-api
   // https://spoonacular.com/food-api/console#Dashboard
-  
-  // PUT YOUR KEYS HERE
-  static String edamamAPIKey = "YOUR KEY HERE";
-  static String edamamAPIAppID = "YOUR KEY HERE";
-  static String spoonacularAPIKey = "YOUR KEY HERE";
+
+  // put your keys in the data/global_data.dart file
+  static String edamamAPIKey = GlobalData.edamamAPIKey;
+  static String edamamAPIAppID = GlobalData.edamamAPIAppID;
+  static String spoonacularAPIKey = GlobalData.spoonacularAPIKey;
 
   // main link of the API
   static String edamamAPI = "https://api.edamam.com/search?q=";
@@ -24,12 +25,15 @@ class Settings {
   static String edamamDefaultSettings = "&to=15&ingr=15";
 
   // main link of the API
-  static String spoonacularAPI = "https://api.spoonacular.com/recipes/complexSearch?includeIngredients=";
+  static String spoonacularAPI =
+      "https://api.spoonacular.com/recipes/complexSearch?includeIngredients=";
   // key from the API and default settings, 15 recipes max
-  static String spoonacularDefaultSettings = "&number=15&addRecipeInformation=true&apiKey=$spoonacularAPIKey";
+  static String spoonacularDefaultSettings =
+      "&number=15&addRecipeInformation=true&apiKey=$spoonacularAPIKey";
 
   // parsed json returned from the API
   static Map edamamReturned;
+
   static Map spoonacularReturned;
 
   static Map<String, bool> searchSettings = {
@@ -56,49 +60,50 @@ class Settings {
     List spoonacularDiets = [];
 
     // Note: dairy, gluten, shellfish, soy, keto, and pescetarian filters are not available for normal search
-    if(searchSettings["dairy"]) {
+    if (searchSettings["dairy"]) {
       //extraEdamamSettings += "&health=dairy-free";
       spoonacularIntolerances.add("dairy");
     }
-    if(searchSettings["gluten"]) {
+    if (searchSettings["gluten"]) {
       //extraEdamamSettings += "&health=gluten-free";
       spoonacularIntolerances.add("gluten");
     }
-    if(searchSettings["peanut"]) {
+    if (searchSettings["peanut"]) {
       extraEdamamSettings += "&health=peanut-free";
       spoonacularIntolerances.add("peanut");
     }
-    if(searchSettings["shellfish"]) {
+    if (searchSettings["shellfish"]) {
       //extraEdamamSettings += "&health=shellfish-free";
       spoonacularIntolerances.add("shellfish");
     }
-    if(searchSettings["soy"]) {
+    if (searchSettings["soy"]) {
       //extraEdamamSettings += "health=&soy-free";
       spoonacularIntolerances.add("soy");
     }
-    if(searchSettings["tree nut"]) {
+    if (searchSettings["tree nut"]) {
       extraEdamamSettings += "&health=tree-nut-free";
       spoonacularIntolerances.add("tree nut");
     }
 
-    if(searchSettings["vegetarian"]) {
+    if (searchSettings["vegetarian"]) {
       extraEdamamSettings += "&health=vegetarian";
       spoonacularDiets.add("vegetarian");
     }
-    if(searchSettings["vegan"]) {
+    if (searchSettings["vegan"]) {
       extraEdamamSettings += "&health=vegan";
       spoonacularDiets.add("vegan");
     }
-    if(searchSettings["ketogenic"]) {
+    if (searchSettings["ketogenic"]) {
       //extraEdamamSettings += "&health=keto-friendly";
       spoonacularDiets.add("ketogenic");
     }
-    if(searchSettings["pescetarian"]) {
+    if (searchSettings["pescetarian"]) {
       //extraEdamamSettings += "&health=pescetarian";
       spoonacularDiets.add("pescetarian");
     }
 
     // set the spoonacular settings as required by the API; the edamam settings are already set
-    extraSpoonacularSettings = "&intolerances=${spoonacularIntolerances.join(",")}&diet=${spoonacularDiets.join(",")}";
+    extraSpoonacularSettings =
+        "&intolerances=${spoonacularIntolerances.join(",")}&diet=${spoonacularDiets.join(",")}";
   }
 }
